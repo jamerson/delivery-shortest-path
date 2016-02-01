@@ -30,7 +30,7 @@ public class Neo4jGraphServiceTest {
     
     @Test
     public void testValidExample() {
-        Neo4jGraphService service = Neo4jGraphService.getInstance();
+        AbstractGraphService service = GraphServiceFactory.getGraphService();
         String map = "A B 10\\nB D 15\\nA C 20\\nC D 30\\nB E 50\\nD E 30";
         assertTrue(service.load("testValidExample",map));
         

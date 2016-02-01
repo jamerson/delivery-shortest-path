@@ -2,11 +2,11 @@ package japps.service.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class RouteResult {
+public class Route {
     private String route = null;
     private double cost = 0;
     
-    public RouteResult(String route, double cost) {
+    public Route(String route, double cost) {
         this.route = route;
         this.cost = cost;
     }

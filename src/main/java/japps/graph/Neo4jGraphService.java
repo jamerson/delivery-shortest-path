@@ -36,7 +36,6 @@ public class Neo4jGraphService extends AbstractGraphService {
     String mapName = null;
     RelationshipType routeRelationshipType = DynamicRelationshipType.withName( "ROUTE" );
     private static GraphDatabaseService graphDb = null;
-    private static Neo4jGraphService instance = new Neo4jGraphService();
     
     private static void registerShutdownHook( final GraphDatabaseService graphDb ) {
         // Registers a shutdown hook for the Neo4j instance so that it
@@ -50,11 +49,7 @@ public class Neo4jGraphService extends AbstractGraphService {
         });
     }
     
-    public synchronized static Neo4jGraphService getInstance() {
-        return instance;
-    }
-    
-    private Neo4jGraphService() {
+    protected Neo4jGraphService() {
         File dbFile = new File(dbFileName);
         graphDb = new GraphDatabaseFactory().newEmbeddedDatabase(dbFile);
         registerShutdownHook( graphDb );
@@ -129,14 +124,7 @@ public class Neo4jGraphService extends AbstractGraphService {
         RouteResult result = null;
         
         try ( Transaction tx = graphDb.beginTx() )
-        {
-            Iterator<Node> nodes = graphDb.getAllNodes().iterator();
-            
-            while(nodes.hasNext()) {
-                Node item = nodes.next();
-                System.out.println(item.getProperty("name"));
-            }
-            
+        {            
             Node startNode = getNode(mapName, startPoint);
             Node endNode = getNode(mapName, endPoint);
             PathFinder<WeightedPath> finder = GraphAlgoFactory.dijkstra(
