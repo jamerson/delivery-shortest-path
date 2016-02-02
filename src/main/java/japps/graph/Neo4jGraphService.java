@@ -54,7 +54,7 @@ public class Neo4jGraphService extends AbstractGraphService {
         try ( Transaction tx = graphDb.beginTx() ) {
             graphDb.schema()
                     .constraintFor( pointLabel )
-                    .assertPropertyIsUnique( "name" )
+                    .assertPropertyIsUnique( "map_point" )
                     .create();
             tx.success();
         }
@@ -71,10 +71,10 @@ public class Neo4jGraphService extends AbstractGraphService {
         ResourceIterator<Node> resultIterator = null;
         try ( Transaction tx = graphDb.beginTx() )
         {
-            String queryString = "MERGE (n:Point {name: {name}, map: {map}}) RETURN n";
+            String queryString = "MERGE (n:Point {name: {name}, map_point: {map_point}}) RETURN n";
             Map<String, Object> parameters = new HashMap<>();
-            parameters.put( "name", nodeName );
-            parameters.put( "map", mapName );
+            parameters.put( "name", nodeName);
+            parameters.put( "map_point", String.format("%1$s_%2$s", mapName, nodeName));
             resultIterator = graphDb.execute( queryString, parameters ).columnAs( "n" );
             result = resultIterator.next();
             tx.success();
@@ -82,8 +82,11 @@ public class Neo4jGraphService extends AbstractGraphService {
         return result;
     }
     
-    private Node getNode(String map, String name) {
-        Result result = graphDb.execute( "MATCH (n:Point {name: '" + name + "', map:'" + map + "'}) RETURN n" );
+    private Node getNode(String map, String nodeName) {
+        String queryString = "MATCH (n:Point {map_point: {map_point}}) RETURN n";
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put( "map_point", String.format("%1$s_%2$s", mapName, nodeName));
+        Result result = graphDb.execute( queryString, parameters );
         Node node = null;
         Map<String,Object> row = null;
         while(result.hasNext()) {
@@ -130,10 +133,10 @@ public class Neo4jGraphService extends AbstractGraphService {
                             routeRelationshipType, Direction.BOTH ), 
                             CommonEvaluators.doubleCostEvaluator("distance") );
             path = finder.findSinglePath(startNode, endNode);
-            
             if(path == null) {
                 return null;
             }
+            
             Iterator<Node> nodeIterator = path.nodes().iterator();
             ArrayList<String> points = new ArrayList<String>();
             while(nodeIterator.hasNext()) {

@@ -22,27 +22,27 @@ public class Neo4jGraphServiceTest {
         }
     }
     
-//    @Test
-//    public void testValidateInputOneLine() {
-//        Neo4jGraphService service = Neo4jGraphService.getInstance();
-//        String map = "A B 10\\n";
-//        service.load("testValidateInputOneLine", map);
-//        assertTrue(true);
-//    }
-//    
-//    @Test
-//    public void testValidateInputOneLineBigDistance() {
-//        Neo4jGraphService service = Neo4jGraphService.getInstance();
-//        String map = "A B 100\\n";
-//        assertTrue(service.load("testValidateInputOneLineBigDistance",map));
-//    }
-//    
-//    @Test
-//    public void testValidateInputOneIncorrectLine() {
-//        Neo4jGraphService service = Neo4jGraphService.getInstance();
-//        String map = "A 10\\n";
-//        assertFalse(service.load("testValidateInputOneIncorrectLine",map));
-//    }
+    @Test
+    public void testValidateInputOneLine() {
+        AbstractGraphService service = GraphServiceFactory.getGraphService();
+        String map = "A B 10\\n";
+        service.load("testValidateInputOneLine", map);
+        assertTrue(true);
+    }
+    
+    @Test
+    public void testValidateInputOneLineBigDistance() {
+        AbstractGraphService service = GraphServiceFactory.getGraphService();
+        String map = "A B 100\\n";
+        assertTrue(service.load("testValidateInputOneLineBigDistance",map));
+    }
+    
+    @Test
+    public void testValidateInputOneIncorrectLine() {
+        AbstractGraphService service = GraphServiceFactory.getGraphService();
+        String map = "A 10\\n";
+        assertFalse(service.load("testValidateInputOneIncorrectLine",map));
+    }
     
     @Test
     public void testValidExample() {
@@ -55,5 +55,22 @@ public class Neo4jGraphServiceTest {
         assertEquals("B",result.getPoints().get(1));
         assertEquals("D",result.getPoints().get(2));
         //assertEquals(6.25, result.getCost());
+    }
+    
+    @Test
+    public void testUnreachablePath() {
+        AbstractGraphService service = GraphServiceFactory.getGraphService();
+        String map = "A B 10\\nD E 30";
+        assertTrue(service.load("testUnreachablePath",map));
+        
+        RouteResult result = service.findRoute("testValidExample", "A", "D", 10, 2.5);
+        assertNull(result);
+    }
+    
+    public void testInexistentMap() {
+        AbstractGraphService service = GraphServiceFactory.getGraphService();
+        
+        RouteResult result = service.findRoute("testInexistentMap", "A", "D", 10, 2.5);
+        assertNull(result);
     }
 }
