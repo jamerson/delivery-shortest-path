@@ -28,8 +28,6 @@ import org.neo4j.graphalgo.PathFinder;
 import org.neo4j.graphalgo.WeightedPath;
 
 public class Neo4jGraphService extends AbstractGraphService {
-    
-    Map<String, String> config = new HashMap<String, String>();
     String dbFileName = "db";
     File dbFile = new File(dbFileName);
     Label pointLabel = DynamicLabel.label( "Point" );
