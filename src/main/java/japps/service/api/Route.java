@@ -1,7 +1,5 @@
 package japps.service.api;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class Route {
     private String route = null;
     private String cost = null;
@@ -14,8 +12,6 @@ public class Route {
         this.cost = cost;
     }
 
-    
-    
     public Route() {}
     
     public Route(String route, String cost) {
