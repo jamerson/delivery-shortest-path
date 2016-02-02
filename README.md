@@ -98,7 +98,7 @@ GET /{name}/query_route?start={start}&end={end}&auto={auto}&fuel={fuel}
 }
 ```
 
-### Ambiente de desenvolvimento:
+### Ambiente de Desenvolvimento
 - Eclipse Mars.1 Release (4.5.1)
 - Maven 3.3.3
 
