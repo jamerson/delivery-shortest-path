@@ -5,8 +5,8 @@ import java.util.regex.Pattern;
 
 public abstract class AbstractGraphService implements GraphServiceInterface {
 
-    private Pattern linePattern = Pattern.compile("([A-Z] [A-Z] [0-9]+)");
-    private Pattern routePattern = Pattern.compile("([A-Z]) ([A-Z]) ([0-9]+)");
+    private Pattern linePattern = Pattern.compile("([A-Z]+ [A-Z]+ [0-9]+)");
+    private Pattern routePattern = Pattern.compile("([A-Z]+) ([A-Z]+) ([0-9]+)");
     
     public boolean load(String mapName, String map) {
         
