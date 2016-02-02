@@ -24,11 +24,11 @@
 ### Considerações
 
 - A estrutura de representação interna será um grafo devido a natureza do problema. Os pontos da malha serão representados pelos nós e as rotas serão representadas pelas arestas. 
-- Apesar de não especificado, o grafo será considerado do tipo bidirecional. Considerando que rotas de caminhões possuem duas mãos.
+- Apesar de não especificado, o grafo adotado será simples não-completo e bidirecional (Considerando que rotas de caminhões possuem duas mãos).
 - Ferramentas e frameworks reconhecidos em suas áreas de atuação serão usados com objetivo de aproveitar os seus pontos fortes destas ferramentas.
 - Será usado Dijkstra para busca de melhor rota considerando que este é um algoritmo robusto com tempo de execuções bons frente a grande massa de dados.
 
-### Decisões arquiteturais:
+### Decisões Arquiteturais
 
 - O sistema se beneficiará de uma base de dados para grafos, devido as estruturas internas e otimizações específicas para este domínio de problema. Com isto em mente, O Neo4J foi escolhido pois é o banco de dados para grafos de maior utilização e com um nível de maturidade adequado para uso profissional. Ele possui funções nativas de algoritmos para grafos, incluindo Dijkstra.
 - O WebService usará a tecnologia REST, que está se tornando a forma de comunicação "de facto" dos serviços web. Como não temos o conhecimento dos consumidores deste serviço este formato vem a calhar por ser o método de comunicação mais flexível e amplamente adotado.
