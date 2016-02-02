@@ -10,10 +10,22 @@
     - Carregamento de mapa
     - Consultar menor valor de entrega
 
+### Requisitos Não-Funcionais
+    
+- O Exemplo com 6 arestas e um total de 5 nós. Porém deve ser considerado "Malhas beeemm mais complexas"
+- Carregamento
+    - Alta carga de entrada:
+        - Quantidade ou ordem de grandeza indefinida mas pelo exemplo dado podemos inferir que podemos ter até 26 nós [A-Z]. Neste cenário o número máximo de arestas possíveis é 650
+        - Tempo de resposta esperado indefinido.
+            - Sendo uma operação que deve ser feita para implantação do sistema, é aceitável que não seja uma resposta instantânea, porém o carregamento não deve afetar a utilização do serviço por outros usuários.
+- Consulta de menor valor de entrega:
+    - Carga da entrada e saída de dados constante. Indenpendente do tamanho da malha. Porém o tempo de processamento proporcional ao tamanho do mapa.
+
 ### Considerações
 
 - A estrutura de representação interna será um grafo devido a natureza do problema. Os pontos da malha serão representados pelos nós e as rotas serão representadas pelas arestas. 
-- Apesar de não especificado, o grafo será considerado do tipo bidirecional. Considerando que 
+- Apesar de não especificado, o grafo será considerado do tipo bidirecional. Considerando que rotas de caminhões possuem duas mãos.
+- A solução irá se apoiar em ferramentas e frameworks reconhecidos em suas áreas de atuação. Assim a solução "herdará" os pontos fortes destas ferramentas.
 - Será usado Dijkstra para busca de melhor rota.
 
 ### Decisões arquiteturais:
@@ -22,7 +34,7 @@
 - O WebService usará a tecnologia REST, que está se tornando a forma de comunicação "de facto" dos serviços web. Como não existe o conhecimento dos consumidores deste serviço foi definido o método de comunicação mais flexível e adotado.
 - A mesma lógica foi usada para a escola do JSON como o formato de dados usado no trafego de informações. A única excessão é o endpoint para carregamento de mapa, onde ele deve acetar a entrada como definido no documento de especificação.
 - Dropwizard será usado desenvolvimento do web service com API REST. Este framework provê as ferramentas para desenvolvimento seguro de APIs web utilizando os padrões atuais do mercado com segurança e confiabilidade.
-    
+
 ### Visão Geral da Arquitetura
 
 - *Service:* Servidor web que expõe uma API REST e se encarrega de receber e responder as requisições de carregamento e consulta.
@@ -74,6 +86,7 @@ D E 30
 ```
 GET /{name}/query_route?start={start}&end={end}&auto={auto}&fuel={fuel}
 ```
+Resultado:
 ```
 {
   "route": "A B D",
@@ -81,21 +94,7 @@ GET /{name}/query_route?start={start}&end={end}&auto={auto}&fuel={fuel}
 }
 ```
 
-- Ambiente de desenvolvimento:
-    - Eclipse Mars.1 Release (4.5.1)
-    - Maven 3.3.3
-    -
-- Requisitos Não-Funcionais
-    - Exemplo com 6 arestas e um total de 5 nós
-    - "Malhas beeemm mais complexas"
-    - Carregamento
-        - Alta carga de entrada:
-            - Quantidade ou ordem de grandeza indefinida.
-            - Pelo exemplo dado podemos inferir que podemos ter até 26 nós [A-Z]
-            - O número máximo de arestas possíveis é 650
-            - Tempo de resposta esperado indefinido.
-                - Sendo uma operação que deve ser feita para implantação do sistema, é aceitável que não seja uma resposta instantânea, porém o carregamento não deve afetar a utilização do serviço por outros usuários.
-    - Consulta de menor valor de entrega:
-        - Entrada e saída de dados constante
-        - Tempo de processamento proporcional ao tamanho do mapa.
-- Melhorias:
+### Ambiente de desenvolvimento:
+- Eclipse Mars.1 Release (4.5.1)
+- Maven 3.3.3
+
