@@ -114,3 +114,8 @@ $ java -jar target/delivery-shortest-path-1.0.0.jar server
 $ mvn clean test
 ```
 
+### Referências
+
+- [Dropwizard](http://www.dropwizard.io/0.9.2/docs/getting-started.html#getting-started)
+- [Neo4j](https://github.com/neo4j/neo4j)
+- [Algorítimo Dijkstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
