@@ -86,4 +86,18 @@ public class Neo4jGraphServiceTest {
         RouteResult result = service.findRoute("testSameStartAndEndPoints", "D", "D", 10, 2.5);
         assertNull(result);
     }
+    
+    @Test
+    public void testDuplicateEntry() {
+        AbstractGraphService service = GraphServiceFactory.getGraphService();
+        String map = "A B 10\\nA B 15\\n";
+        assertTrue(service.load("testDuplicateEntry",map));
+        
+        RouteResult result = service.findRoute("testDuplicateEntry", "A", "B", 1, 1);
+        assertEquals(
+                10, 
+                result.getCost(),
+                0.01);
+        
+    }
 }

@@ -104,7 +104,7 @@ GET /{name}/query_route?start={start}&end={end}&auto={auto}&fuel={fuel}
 #### Execução do serviço na porta 8080
 ```
 $ mvn clean package
-$ java -jar target/delivery-shortest-path-1.0.0.jar server delivery-shortest-path.yml
+$ java -jar target/delivery-shortest-path-1.0.0.jar server
 ```
 - Uma interface de administração etá disponível na porta 8081 com o registro de tempo de execução de cada chamada a API.
 
