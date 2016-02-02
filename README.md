@@ -12,10 +12,11 @@
 
 ### Requisitos Não-Funcionais
     
-- O Exemplo com 6 arestas e um total de 5 nós. Porém deve ser considerado "Malhas beeemm mais complexas"
+- O Exemplo com 6 arestas e um total de 5 nós. Mas de acordo com a especificação, o sistema deve comportar um cenário bem mais complexo.
+
 - Carregamento
     - Alta carga de entrada:
-        - Quantidade ou ordem de grandeza indefinida mas pelo exemplo dado podemos inferir que podemos ter até 26 nós [A-Z]. Neste cenário o número máximo de arestas possíveis é 650
+        - Quantidade ou ordem de grandeza indefinida mas pelo exemplo dado podemos inferir que podemos ter até 26 nós [A-Z]. Neste cenário o número máximo de arestas possíveis é 650.
         - Tempo de resposta esperado indefinido.
             - Sendo uma operação que deve ser feita para implantação do sistema, é aceitável que não seja uma resposta instantânea, porém o carregamento não deve afetar a utilização do serviço por outros usuários.
 - Consulta de menor valor de entrega:
