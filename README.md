@@ -68,7 +68,7 @@ B E 50
 D E 30
 ```
 
-#### Retorna o menor valor de entrega e seu caminho.
+#### Retornar o menor valor de entrega e seu caminho usando a malha `{name}`.
 - Método: `GET`
 - Entrada:
     - Parametros Path:
