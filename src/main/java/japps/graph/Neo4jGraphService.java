@@ -128,6 +128,10 @@ public class Neo4jGraphService extends AbstractGraphService {
         WeightedPath path = null;
         RouteResult result = null;
         
+        if(startPoint.equals(endPoint)) {
+            return null;
+        }
+        
         try ( Transaction tx = graphDb.beginTx() )
         {            
             Node startNode = getNode(mapName, startPoint);
@@ -146,7 +150,8 @@ public class Neo4jGraphService extends AbstractGraphService {
             while(nodeIterator.hasNext()) {
                 points.add((String)nodeIterator.next().getProperty("name"));
             }
-            result = new RouteResult(points, path.weight());
+            double cost = (path.weight() / autonomy) * fuelPrice;
+            result = new RouteResult(points, cost);
             
             tx.success();
         }

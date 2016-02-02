@@ -1,12 +1,5 @@
 package japps.service.resources;
 
-import com.codahale.metrics.annotation.Timed;
-
-import japps.graph.AbstractGraphService;
-import japps.graph.GraphServiceFactory;
-import japps.graph.RouteResult;
-import japps.service.api.Route;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -16,13 +9,17 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import java.util.Iterator;
-import java.util.concurrent.atomic.AtomicLong;
-
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.codahale.metrics.annotation.Timed;
+
+import japps.graph.AbstractGraphService;
+import japps.graph.GraphServiceFactory;
+import japps.graph.RouteResult;
+import japps.service.api.Route;
 
 @Path("/maps")
 @Produces(MediaType.APPLICATION_JSON)
@@ -50,13 +47,22 @@ public class MapsResource {
     @GET
     @Timed
     @Path("/{name}/query_route")
-    public Response findPath(@PathParam("name") @NotEmpty String mapName, @QueryParam("start") @NotEmpty String startPoint, @QueryParam("end") @NotEmpty String endPoint, @QueryParam("auto") @NotEmpty Double autonomy, @QueryParam("fuel") @NotEmpty Double fuelPrice) {
+    public Response findPath(@PathParam("name") @NotEmpty String mapName, @QueryParam("start") @NotEmpty String startPoint, @QueryParam("end") @NotEmpty String endPoint, @QueryParam("auto") @NotEmpty String autonomy, @QueryParam("fuel") @NotEmpty String fuelPrice) {
         AbstractGraphService service = GraphServiceFactory.getGraphService();
         
-        RouteResult result = service.findRoute(mapName, startPoint, endPoint, autonomy, fuelPrice);
+        double autonomyNumber = 0;
+        double fuelPriceNumber = 0;
+        try {
+            autonomyNumber = Double.parseDouble(autonomy);
+            fuelPriceNumber = Double.parseDouble(fuelPrice);
+        } catch(NumberFormatException ex) {
+            return Response.status(Response.Status.BAD_REQUEST).build(); 
+        }
+        
+        RouteResult result = service.findRoute(mapName, startPoint, endPoint, autonomyNumber, fuelPriceNumber);
         
         if(result != null) {
-            Route route = new Route(StringUtils.join(result.getPoints(),' '), result.getCost());
+            Route route = new Route(StringUtils.join(result.getPoints(),' '), Double.toString(result.getCost()));
             return Response.ok().entity(route).build();
         }
         

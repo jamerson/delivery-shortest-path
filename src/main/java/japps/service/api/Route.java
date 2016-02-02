@@ -4,20 +4,30 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Route {
     private String route = null;
-    private double cost = 0;
+    private String cost = null;
     
-    public Route(String route, double cost) {
+    public void setRoute(String route) {
+        this.route = route;
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
+    }
+
+    
+    
+    public Route() {}
+    
+    public Route(String route, String cost) {
         this.route = route;
         this.cost = cost;
     }
 
-    @JsonProperty
     public String getRoute() {
         return route;
     }
 
-    @JsonProperty
-    public double getCost() {
+    public String getCost() {
         return cost;
     }
 }

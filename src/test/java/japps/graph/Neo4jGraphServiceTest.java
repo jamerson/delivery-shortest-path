@@ -54,7 +54,10 @@ public class Neo4jGraphServiceTest {
         assertEquals("A",result.getPoints().get(0));
         assertEquals("B",result.getPoints().get(1));
         assertEquals("D",result.getPoints().get(2));
-        //assertEquals(6.25, result.getCost());
+        assertEquals(
+                6.25, 
+                result.getCost(),
+                0.01);
     }
     
     @Test
@@ -71,6 +74,16 @@ public class Neo4jGraphServiceTest {
         AbstractGraphService service = GraphServiceFactory.getGraphService();
         
         RouteResult result = service.findRoute("testInexistentMap", "A", "D", 10, 2.5);
+        assertNull(result);
+    }
+    
+    @Test
+    public void testSameStartAndEndPoints() {
+        AbstractGraphService service = GraphServiceFactory.getGraphService();
+        String map = "A B 10\\nB D 15\\nA C 20\\nC D 30\\nB E 50\\nD E 30";
+        assertTrue(service.load("testSameStartAndEndPoints",map));
+        
+        RouteResult result = service.findRoute("testSameStartAndEndPoints", "D", "D", 10, 2.5);
         assertNull(result);
     }
 }
