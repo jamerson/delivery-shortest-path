@@ -1,8 +1,8 @@
-### Requisitos de auto nível
+### Análise de Auto Nível
 
 - Sem restrições de arquitetura e tecnologias, com excessão da linguagem Java.
-- Documentação e testes
-- Requisitos não-funcionais
+- Entregáveis: Código, Documentação e testes
+- Considerar requisitos de qualidade assim como os funcionais.
 
 ### Requisitos Funcionais
 
