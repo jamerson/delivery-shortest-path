@@ -90,7 +90,7 @@ GET /{name}/query_route?start={start}&end={end}&auto={auto}&fuel={fuel}
 
 - Resultado:
 
-```
+```json
 {
   "route": "A B D",
   "cost": "6.25"
