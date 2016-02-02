@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 @Produces(MediaType.APPLICATION_JSON)
 public class MapsResource {
 
-    public MapsResource(String template, String defaultName) {
+    public MapsResource() {
     }
 
     @POST

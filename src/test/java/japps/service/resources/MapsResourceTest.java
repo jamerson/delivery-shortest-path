@@ -14,7 +14,7 @@ public class MapsResourceTest {
     
     @ClassRule
     public static final ResourceTestRule resources = ResourceTestRule.builder()
-            .addResource(new MapsResource(null, null))
+            .addResource(new MapsResource())
             .build();
     
     private final String simpleMap = "A B 10";
@@ -32,15 +32,15 @@ public class MapsResourceTest {
         assertTrue(true);
     }
     
-//    @Test
-//    public void testCreateSimpleMapIncorrectInputOneNode() {
-//        Response response = resources.client().
-//                target("/maps/incorrectInputOneNode").request().
-//                post(Entity.text(incorrectInputOneNode));
-//        
-//        assertEquals(
-//                Response.Status.BAD_REQUEST.getStatusCode(), 
-//                response.getStatus());
-//        assertTrue(true);
-//    }
+    @Test
+    public void testCreateSimpleMapIncorrectInputOneNode() {
+        Response response = resources.client().
+                target("/maps/incorrectInputOneNode").request().
+                post(Entity.text(incorrectInputOneNode));
+        
+        assertEquals(
+                Response.Status.BAD_REQUEST.getStatusCode(), 
+                response.getStatus());
+        assertTrue(true);
+    }
 }
