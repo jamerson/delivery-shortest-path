@@ -34,18 +34,23 @@ public class MapsResource {
     @POST
     @Timed
     @Path("/{name}")
-    public Response postMap(@PathParam("name") @NotEmpty String mapName, String map) {
+    public Response postMap(@PathParam("name") @NotEmpty String mapName, @NotEmpty String map) {
         Logger logger = LoggerFactory.getLogger("japps.service.resources.MapsResource");
         logger.debug(mapName);
         logger.debug(map);
+        AbstractGraphService service = GraphServiceFactory.getGraphService();
         
-        return Response.status(Response.Status.CREATED).build();
+        if(service.load(mapName, map)) {
+            return Response.status(Response.Status.CREATED).build();
+        }
+        
+        return Response.status(Response.Status.BAD_REQUEST).build();
     }
     
     @GET
     @Timed
-    @Path("/{name}/find")
-    public Response findPath(@PathParam("name") @NotEmpty String mapName, @QueryParam("start") String startPoint, @QueryParam("end") String endPoint, @QueryParam("auto") double autonomy, @QueryParam("fuel") double fuelPrice) {
+    @Path("/{name}/query_route")
+    public Response findPath(@PathParam("name") @NotEmpty String mapName, @QueryParam("start") @NotEmpty String startPoint, @QueryParam("end") @NotEmpty String endPoint, @QueryParam("auto") @NotEmpty Double autonomy, @QueryParam("fuel") @NotEmpty Double fuelPrice) {
         AbstractGraphService service = GraphServiceFactory.getGraphService();
         
         RouteResult result = service.findRoute(mapName, startPoint, endPoint, autonomy, fuelPrice);

@@ -52,10 +52,14 @@ public class Neo4jGraphService extends AbstractGraphService {
         graphDb = new GraphDatabaseFactory().newEmbeddedDatabase(dbFile);
         registerShutdownHook( graphDb );
         try ( Transaction tx = graphDb.beginTx() ) {
-            graphDb.schema()
-                    .constraintFor( pointLabel )
-                    .assertPropertyIsUnique( "map_point" )
-                    .create();
+            //check if the db already has the constraint created
+            if(!graphDb.schema().getConstraints(pointLabel).iterator().hasNext()) {
+                graphDb.schema()
+                .constraintFor( pointLabel )
+                .assertPropertyIsUnique( "map_point" )
+                .create();
+            }
+
             tx.success();
         }
     }
@@ -82,7 +86,7 @@ public class Neo4jGraphService extends AbstractGraphService {
         return result;
     }
     
-    private Node getNode(String map, String nodeName) {
+    Node getNode(String map, String nodeName) {
         String queryString = "MATCH (n:Point {map_point: {map_point}}) RETURN n";
         Map<String, Object> parameters = new HashMap<>();
         parameters.put( "map_point", String.format("%1$s_%2$s", mapName, nodeName));
@@ -98,7 +102,7 @@ public class Neo4jGraphService extends AbstractGraphService {
     }
 
     @Override
-    public boolean loadRoute(String startPoint, String endPoint, double distance) {
+    boolean loadRoute(String startPoint, String endPoint, double distance) {
         try ( Transaction tx = graphDb.beginTx() )
         {
             //creating the nodes
@@ -116,7 +120,7 @@ public class Neo4jGraphService extends AbstractGraphService {
     }
 
     @Override
-    public boolean afterLoad() {
+    boolean afterLoad() {
         return true;
     }
     

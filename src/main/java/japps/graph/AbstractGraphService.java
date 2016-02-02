@@ -39,9 +39,9 @@ public abstract class AbstractGraphService implements GraphServiceInterface {
         }
     }
     
-    public abstract boolean beforeLoad(String mapName);
-    public abstract boolean loadRoute(String startPoint, String endPoint, double distance);
-    public abstract boolean afterLoad();
+    abstract boolean beforeLoad(String mapName);
+    abstract boolean loadRoute(String startPoint, String endPoint, double distance);
+    abstract boolean afterLoad();
     public abstract RouteResult findRoute(String mapName, String startPoint, String endPoint, double autonomy, double fuelPrice);
 
 }
