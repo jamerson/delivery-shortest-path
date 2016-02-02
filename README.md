@@ -33,10 +33,20 @@
 
 ### Web API
 
-- `POST /map/{name}` - Cria novo mapa de nome `{name}` com malha logística passada.
-    - Corpo da mensagem:
-
+#### Criar novo mapa de nome `{name}` com malha logística.
+- Método: `POST`
+- Entrada:
+    - Parâmetros Path:
+        - `name`: Nome da malha.
+    - Body:
+        linhas no formato: `A B 10` descrevendo a malha.
+    - Content-Type: text
+- Respostas:
+    - 201 - Mapa criado
+    - 400 - Parâmetros incorretos.
+- Exemplo:
 ```
+POST /map/{name}
 A B 10
 B D 15
 A C 20
@@ -44,12 +54,33 @@ C D 30
 B E 50
 D E 30
 ```
-        - 201 - Mapa criado
-        - 400 - Parâmetros incorretos passados.
-    - GET /query_route/ - Retorna o menor valor de entrega e seu caminho.
-        - 200 - requisição completada
-        - 400 - Parâmetros incorretos passados.
-        - 404 - Caminho não pode ser encontrado.
+
+#### Retorna o menor valor de entrega e seu caminho.
+- Método: `GET`
+- Entrada:
+    - Parametros Path:
+        - `name`: Nome da malha.
+    - Parâmetros Query:
+     - `start`: Ponto inicial
+     - `end`: Ponto final
+     - `auto`: Autonomia do caminhão
+     - `fuel`: Valor do litro de combustível
+    - Content-Type: text
+- Respostas:
+    - 400 - Parâmetros incorretos.
+    - 200 - Menor rota calculada
+    - 404 - Caminho não pode ser encontrado.
+
+```
+GET /{name}/query_route?start={start}&end={end}&auto={auto}&fuel={fuel}
+```
+```
+{
+  "route": "A B D",
+  "cost": "6.25"
+}
+```
+
 - Ambiente de desenvolvimento:
     - Eclipse Mars.1 Release (4.5.1)
     - Maven 3.3.3
