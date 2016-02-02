@@ -1,26 +1,13 @@
 package japps.graph;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
-import org.neo4j.io.fs.FileUtils;
-
-import static org.junit.Assert.*;
-
-import java.io.File;
-import java.io.IOException;
-
-import org.junit.BeforeClass;
 
 public class Neo4jGraphServiceTest {
-    
-    @BeforeClass
-    public static void cleanTestDatabase()
-    {
-        try {
-            FileUtils.deleteRecursively(new File("db"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     
     @Test
     public void testValidateInputOneLine() {
