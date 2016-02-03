@@ -31,6 +31,12 @@ public class Neo4jGraphServiceTest {
         assertFalse(service.load("testValidateInputOneIncorrectLine",map));
     }
     
+    public void testNegativeDistance() {
+        AbstractGraphService service = GraphServiceFactory.getGraphService();
+        String map = "A B -1\\n";
+        assertFalse(service.load("testNegativeDistance",map));
+    }
+    
     @Test
     public void testValidExample() {
         AbstractGraphService service = GraphServiceFactory.getGraphService();
