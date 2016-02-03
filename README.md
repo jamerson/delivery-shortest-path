@@ -66,6 +66,8 @@ B E 50
 D E 30
 ```
 
+Um exemplo de malha onde os pontos são os estados brasileiros pode ser encontrado [aqui](https://github.com/jamerson/delivery-shortest-path/blob/master/extras/states.txt). (Os dados devem ir no body do request)
+
 #### Retornar o menor valor de entrega e seu caminho usando a malha `{name}`.
 A requisição do tipo GET deve ter o nome do mapa em sua URL e as parametros definidos abaixo. `start` e `end` devem ser pontos válidos no mapa em questão. `auto` e `fuel` devem ser algum número do tipo double maior que zero. A resposta será um JSON válido com `route` contendo uma String com todos os pontos da rota e `cost` com o valor do custo da rota.
 - Método: `GET`
@@ -106,7 +108,7 @@ GET /{name}/query_route?start={start}&end={end}&auto={auto}&fuel={fuel}
 $ mvn clean package
 $ java -jar target/delivery-shortest-path-1.0.0.jar server
 ```
-- Uma interface de administração etá disponível na porta 8081 com o registro de tempo de execução de cada chamada a API.
+- Uma interface de administração está disponível na porta 8081 com o registro de tempo de execução de cada chamada a API.
 
 #### Execução dos testes unitários
 ```
