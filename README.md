@@ -46,15 +46,19 @@ D E 30
 ![Visão estrutural da Arquitetura](https://github.com/jamerson/delivery-shortest-path/blob/master/extras/arch.png)
 
 A arquitetura pode ser dividida nos seguintes módulos:
-- *Dropwizard* Framework com servidor web e bibliotecas de validação, tratamento de JSON, log de erros e tratamento de requisições web. Seus sub-módulos principais são:
-    - *Service* Módulo com código referente a definição de endpoints disponibilizados via API e ele é responsável pela comunicação com o módulo *Graph*. Seu sub-módulo *Resources* Agrupam os endpoints em resources REST. 
-- *Graph:* Módulo encarregado de gerênciar as malhas e de realizar busca de trajetos.
-    - * GraphService* Os serviços do módulo serão disponibilizados através de uma subclass da classe abstrata AbstractGraphService. Esta classe é um ponto de extensão do módulo, permitindo a implementação de outras estratégias de armazenamento e busca do grafo. 
-    - *Neo4jGraphService* A estratégia atual está disponível nesta classe, que utiliza o banco de dados de grafos Neo4J para realizar suas funções.
+- *Dropwizard*: Framework com servidor web e bibliotecas de validação, tratamento de JSON, log de erros e tratamento de requisições web. Seus sub-módulos principais são:
+    - *Service*: Módulo com código referente a definição de endpoints disponibilizados via API e ele é responsável pela comunicação com o módulo *Graph*. Seu sub-módulo *Resources* Agrupam os endpoints em resources REST. 
+- *Graph*: Módulo encarregado de gerênciar as malhas e de realizar busca de trajetos.
+    - *GraphService*: Os serviços do módulo serão disponibilizados através de uma subclass da classe abstrata AbstractGraphService. Esta classe é um ponto de extensão do módulo, permitindo a implementação de outras estratégias de armazenamento e busca do grafo. O serviço real é disponibilizado através de uma abstract factory chamada *GraphServiceFactory*, além disso ela é responsável por criar e manter o singleton do serviço real do grafo.
+    - *Neo4jGraphService*: A estratégia atual está disponível nesta classe, que utiliza o banco de dados de grafos Neo4J para realizar suas funções.
+
+Durante a execução do serviço, o servidor web será encarregado de receber e criar threads para as requisições. Cada requisição irá validar os dados de entrada e solicitar a instância do serviço de grafo para a factory. Como o serviço é um singleton, existe apenas uma instância do serviço para todas as requisições(os acessos aos recursos compartilhados do driver do grafo são envolvidos em transações).
 
 ### Web API
 
 #### Criar novo mapa de nome `{name}` com malha logística.
+A requisição do tipo POST deve ter o nome do mapa em sua URL e em seu corpo a definição da malha deste mapa. A definição e uma sequência de linhas onde cada linha define uma rota no formato `<ponto inicial> <ponto final> <custo>`. O `<ponto inicial>` e o `<ponto final>` são Strings compostas por letras maiúsculas do alfabeto e o `<custo>` é um número do tipo double. Linhas com rotas já definidas serão descartadas. 
+
 - Método: `POST`
 - Entrada:
     - Parâmetros Path:
@@ -77,6 +81,7 @@ D E 30
 ```
 
 #### Retornar o menor valor de entrega e seu caminho usando a malha `{name}`.
+A requisição do tipo GET deve ter o nome do mapa em sua URL e as parametros definidos abaixo. `start` e `end` devem ser pontos válidos no mapa em questão. `auto` e `fuel` devem ser algum número do tipo double maior que zero. A resposta será um JSON válido com `route` contendo uma String com todos os pontos da rota e `cost` com o valor do custo da rota.
 - Método: `GET`
 - Entrada:
     - Parametros Path:
@@ -89,7 +94,7 @@ D E 30
     - Content-Type: text
 - Respostas:
     - 400 - Parâmetros incorretos.
-    - 200 - Menor rota calculada
+    - 200 - Menor rota calculada.
     - 404 - Caminho não pode ser encontrado.
 - Exemplo:
 
