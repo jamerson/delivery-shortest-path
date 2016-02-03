@@ -20,7 +20,7 @@ A API REST também expõe o serviço de consulta de caminho de menor custo em de
 
 ### Decisões Arquiteturais
 
-- O sistema se beneficiará de uma base de dados para grafos, devido as estruturas internas e otimizações específicas para este domínio de problema. Com isto em mente, O Neo4J foi escolhido pois é o banco de dados para grafos de maior utilização e com um nível de maturidade adequado para uso profissional. Ele possui funções nativas de algoritmos para grafos, incluindo Dijkstra.
+- O sistema se beneficiará de uma base de dados para grafos, devido as estruturas internas e otimizações específicas para este domínio de problema. Com isto em mente, O Neo4j foi escolhido pois é o banco de dados para grafos de maior utilização e com um nível de maturidade adequado para uso profissional. Ele possui funções nativas de algoritmos para grafos, incluindo Dijkstra.
 - O WebService usará a tecnologia REST, que está se tornando a forma de comunicação "de facto" dos serviços web. Como não temos o conhecimento dos consumidores deste serviço este formato vem a calhar por ser o método de comunicação mais flexível e amplamente adotado.
 - A mesma lógica foi usada para a escola do JSON como o formato de dados usado no tráfego de informações. A única excessão é o endpoint para carregamento de mapa, onde ele deve aceitar a entrada como definido no documento de especificação.
 - Dropwizard será usado no desenvolvimento do web service com API REST. Este framework provê as ferramentas para um desenvolvimento seguro de APIs web utilizando os padrões atuais do mercado com segurança e confiabilidade.
