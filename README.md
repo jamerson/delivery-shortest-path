@@ -14,7 +14,7 @@ A API REST também expõe o serviço de consulta de caminho de menor custo em de
 ### Considerações
 
 - A estrutura de representação interna será um grafo devido a natureza do problema. Os pontos da malha serão representados pelos nós e as rotas serão representadas pelas arestas. 
-- Apesar de não especificado, o grafo adotado será simples não-completo e bidirecional (Considerando que rotas de caminhões possuem duas mãos).
+- Apesar de não especificado, o grafo adotado será simples não-completo e bidirecional (considerando que rotas de caminhões possuem duas mãos).
 - Ferramentas e frameworks reconhecidos em suas áreas de atuação serão usados com objetivo de aproveitar os seus pontos fortes destas ferramentas.
 - Será usado Dijkstra para busca de melhor rota considerando que este é um algoritmo robusto com tempo de execuções bons frente a grande massa de dados.
 
@@ -38,7 +38,7 @@ A arquitetura pode ser dividida nos seguintes módulos:
     - *GraphService*: Os serviços do módulo serão disponibilizados através de uma subclass da classe abstrata AbstractGraphService. Esta classe é um ponto de extensão do módulo, permitindo a implementação de outras estratégias de armazenamento e busca do grafo. O serviço real é disponibilizado através de uma abstract factory chamada *GraphServiceFactory*, além disso ela é responsável por criar e manter o singleton do serviço real do grafo.
     - *Neo4jGraphService*: A estratégia atual está disponível nesta classe, que utiliza o banco de dados de grafos Neo4J para realizar suas funções.
 
-Durante a execução do serviço, o servidor web será encarregado de receber e criar threads para as requisições. Cada requisição irá validar os dados de entrada e solicitar a instância do serviço de grafo para a factory. Como o serviço é um singleton, existe apenas uma instância do serviço para todas as requisições(os acessos aos recursos compartilhados do driver do grafo são envolvidos em transações).
+Durante a execução do serviço, o servidor web será encarregado de receber e criar threads para as requisições. Cada requisição irá validar os dados de entrada e solicitar a instância do serviço de grafo para a factory. Como o serviço é um singleton, existe apenas uma instância do serviço para todas as requisições (os acessos aos recursos compartilhados do driver do grafo são envolvidos em transações).
 
 ### Web API
 
