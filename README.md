@@ -1,18 +1,21 @@
-### Análise de Auto Nível
-
-- Sem restrições de arquitetura e tecnologias, com excessão da linguagem Java.
-- Entregáveis: Código, Documentação e testes
-- Considerar requisitos de qualidade assim como os funcionais.
-
 ### Requisitos Funcionais
 
 - Webservice API
     - Carregamento de mapa
+        - Informações devem ser persistidas para consultas subsequentes
     - Consultar menor valor de entrega
 
 ### Requisitos Não-Funcionais
     
-- O Exemplo com 6 arestas e um total de 5 nós. Mas de acordo com a especificação, o sistema deve comportar um cenário bem mais complexo.
+- O Exemplo a seguir, usado como referência, contém 6 arestas e um total de 5 nós. Mas de acordo com a especificação, o sistema deve comportar um cenário bem mais complexo.
+```
+A B 10
+B D 15
+A C 20
+C D 30
+B E 50
+D E 30
+```
 
 - Carregamento
     - Alta carga de entrada:
