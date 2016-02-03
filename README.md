@@ -1,13 +1,5 @@
-### Requisitos Funcionais
+Este projeto define um serviço web capaz de encontrar o caminho de menor custo em uma malha logística previamente carregada. Diversas malhas podem ser criadas através da API REST do serviço. O modelo usado como base para o carregamento das malhas segue o seguinte exemplo:
 
-- Webservice API
-    - Carregamento de mapa
-        - Informações devem ser persistidas para consultas subsequentes
-    - Consultar menor valor de entrega
-
-### Requisitos Não-Funcionais
-    
-- O Exemplo a seguir, usado como referência, contém 6 arestas e um total de 5 nós. Mas de acordo com a especificação, o sistema deve comportar um cenário bem mais complexo.
 ```
 A B 10
 B D 15
@@ -17,13 +9,7 @@ B E 50
 D E 30
 ```
 
-- Carregamento
-    - Alta carga de entrada:
-        - Quantidade ou ordem de grandeza indefinida mas pelo exemplo dado podemos inferir que podemos ter até 26 nós [A-Z]. Neste cenário o número máximo de arestas possíveis é 650.
-        - Tempo de resposta esperado indefinido.
-            - Sendo uma operação que deve ser feita para implantação do sistema, é aceitável que não seja uma resposta instantânea, porém o carregamento não deve afetar a utilização do serviço por outros usuários.
-- Consulta de menor valor de entrega:
-    - Carga da entrada e saída de dados constante. Indenpendente do tamanho da malha. Porém o tempo de processamento proporcional ao tamanho do mapa.
+A API REST também expõe o serviço de consulta de caminho de menor custo em determinada malha, como especificado na sequência. 
 
 ### Considerações
 
