@@ -1,21 +1,25 @@
-### Requisitos de auto nível
-
-- Sem restrições de arquitetura e tecnologias, com excessão da linguagem Java.
-- Documentação e testes
-- Requisitos não-funcionais
-
 ### Requisitos Funcionais
 
 - Webservice API
     - Carregamento de mapa
+        - Informações devem ser persistidas para consultas subsequentes
     - Consultar menor valor de entrega
 
 ### Requisitos Não-Funcionais
     
-- O Exemplo com 6 arestas e um total de 5 nós. Porém deve ser considerado "Malhas beeemm mais complexas"
+- O Exemplo a seguir, usado como referência, contém 6 arestas e um total de 5 nós. Mas de acordo com a especificação, o sistema deve comportar um cenário bem mais complexo.
+```
+A B 10
+B D 15
+A C 20
+C D 30
+B E 50
+D E 30
+```
+
 - Carregamento
     - Alta carga de entrada:
-        - Quantidade ou ordem de grandeza indefinida mas pelo exemplo dado podemos inferir que podemos ter até 26 nós [A-Z]. Neste cenário o número máximo de arestas possíveis é 650
+        - Quantidade ou ordem de grandeza indefinida mas pelo exemplo dado podemos inferir que podemos ter até 26 nós [A-Z]. Neste cenário o número máximo de arestas possíveis é 650.
         - Tempo de resposta esperado indefinido.
             - Sendo uma operação que deve ser feita para implantação do sistema, é aceitável que não seja uma resposta instantânea, porém o carregamento não deve afetar a utilização do serviço por outros usuários.
 - Consulta de menor valor de entrega:
@@ -67,7 +71,7 @@ B E 50
 D E 30
 ```
 
-#### Retorna o menor valor de entrega e seu caminho.
+#### Retornar o menor valor de entrega e seu caminho usando a malha `{name}`.
 - Método: `GET`
 - Entrada:
     - Parametros Path:
@@ -90,14 +94,14 @@ GET /{name}/query_route?start={start}&end={end}&auto={auto}&fuel={fuel}
 
 - Resultado:
 
-```
+```json
 {
   "route": "A B D",
   "cost": "6.25"
 }
 ```
 
-### Ambiente de desenvolvimento:
+### Ambiente de Desenvolvimento
 - Eclipse Mars.1 Release (4.5.1)
 - Maven 3.3.3
 
@@ -113,3 +117,8 @@ $ java -jar target/delivery-shortest-path-1.0.0.jar server
 $ mvn clean test
 ```
 
+### Referências
+
+- [Dropwizard](http://www.dropwizard.io/0.9.2/docs/getting-started.html#getting-started)
+- [Neo4j](https://github.com/neo4j/neo4j)
+- [Algorítimo Dijkstra](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
