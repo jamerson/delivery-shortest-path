@@ -41,11 +41,16 @@ D E 30
 
 ### Visão Geral da Arquitetura
 
-- *Service:* Servidor web que expõe uma API REST e se encarrega de receber e responder as requisições de carregamento e consulta.
-    - Modulo construído a partir do Framework Dropwizard.
-- *Graph:* Módulo encarregado de gerênciar as malhas e realizar busca de trajetos.
-    - Os serviços do módulo serão disponibilizados através de uma subclass da classe abstrata AbstractGraphService. Esta classe é um ponto de extensão do módulo, permitindo a implementação de outras estratégias de armazenamento e busca do grafo. A estratégia atual está disponível na classe Neo4JGraphService, que utiliza o banco de dados de grafos Neo4J para realizar suas funções.
-- *Tests:* Framework de testes automáticos utilizando JUnit.
+#### Visão Estrutural
+
+![Visão estrutural da Arquitetura](https://github.com/jamerson/delivery-shortest-path/blob/master/extras/arch.png)
+
+A arquitetura pode ser dividida nos seguintes módulos:
+- *Dropwizard* Framework com servidor web e bibliotecas de validação, tratamento de JSON, log de erros e tratamento de requisições web. Seus sub-módulos principais são:
+    - *Service* Módulo com código referente a definição de endpoints disponibilizados via API e ele é responsável pela comunicação com o módulo *Graph*. Seu sub-módulo *Resources* Agrupam os endpoints em resources REST. 
+- *Graph:* Módulo encarregado de gerênciar as malhas e de realizar busca de trajetos.
+    - * GraphService* Os serviços do módulo serão disponibilizados através de uma subclass da classe abstrata AbstractGraphService. Esta classe é um ponto de extensão do módulo, permitindo a implementação de outras estratégias de armazenamento e busca do grafo. 
+    - *Neo4jGraphService* A estratégia atual está disponível nesta classe, que utiliza o banco de dados de grafos Neo4J para realizar suas funções.
 
 ### Web API
 
